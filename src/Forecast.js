@@ -63,7 +63,7 @@ class Forecast extends Component {
       return <Day key={day.dt} weather={day} />;
     });
     return (
-      <div>
+      <div className="container">
         <Input history={this.props.history} />
         {this.state.city}
         <div className="columns">{days}</div>
