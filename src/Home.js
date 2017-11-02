@@ -1,26 +1,20 @@
-import React from "react";
-import { Link } from "react-router-dom";
-const Home = () => {
-  return (
-    <div className="hero is-primary is-fullheight">
-      <div className="hero-body">
-        <div className="container has-text-centered">
-          <div className="columns">
-            <div className="column is-one-third is-offset-one-third">
-              <h1 className="title">Simple Weather</h1>
-              <div className="control">
-                <input
-                  type="text"
-                  className="input is-medium"
-                  placeholder="Enter a city or zip"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
+import React, { Component } from 'react';
+import Input from './Input';
+import './css/Home.css';
+
+class Home extends Component {
+  constructor(props) {
+    super(props);
+  }
+
+  render() {
+    return (
+      <div className="home has-text-centered">
+        <h1 className="title">Simple Weather</h1>
+        <Input history={this.props.history} />
       </div>
-    </div>
-  );
-};
+    );
+  }
+}
 
 export default Home;

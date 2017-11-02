@@ -1,0 +1,15 @@
+.input-form .control {
+  display: flex;
+  justify-content: center;
+}
+
+.input-form input {
+  max-width: 500px;
+}
+
+.input-form {
+  top: 0;
+}
+
+@keyframes inputToTop {
+}

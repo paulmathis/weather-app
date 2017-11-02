@@ -1,21 +1,26 @@
-import React, { Component } from "react";
-import PropTypes from "prop-types";
-import axios from "axios";
-import Day from "./Day";
+import React, { Component } from 'react';
+import axios from 'axios';
+import Day from './Day';
+import Input from './Input';
 
-const key = "a08df5773a66dd650a0e2724e8e6f468";
+const key = 'a08df5773a66dd650a0e2724e8e6f468';
 
 class Forecast extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      city: "",
-      allWeather: []
+      city: '',
+      allWeather: [],
+      // Zip is to check if it has changed
+      zip: this.props.match.params.location
     };
+    this.apiCall = this.apiCall.bind(this);
   }
-  componentDidMount() {
-    const location = this.props.match.params.location;
 
+  // Get weather data for zip in route params
+  apiCall() {
+    const location = this.props.match.params.location;
+    console.log('api call');
     axios
       .get(`https://api.openweathermap.org/data/2.5/forecast/daily`, {
         params: {
@@ -24,7 +29,6 @@ class Forecast extends Component {
         }
       })
       .then(({ data }) => {
-        console.log(data.list);
         this.setState({
           city: data.city.name,
           allWeather: data.list
@@ -34,19 +38,38 @@ class Forecast extends Component {
         console.log(err);
       });
   }
+
+  // On mount make api request
+  componentDidMount() {
+    this.apiCall();
+  }
+
+  // Remake api request on update from input
+  componentDidUpdate() {
+    // Only make a new call if the zip has changed
+    if (this.state.zip !== this.props.match.params.location) {
+      this.apiCall();
+      // Set the zip state to the current param
+      this.setState({
+        zip: this.props.match.params.location
+      });
+    }
+  }
+
   render() {
+    // Render individual day components
     const days = this.state.allWeather.map(day => {
-      return <Day weather={day} />;
+      // console.log(day);
+      return <Day key={day.dt} weather={day} />;
     });
     return (
       <div>
+        <Input history={this.props.history} />
         {this.state.city}
-        {days}
+        <div className="columns">{days}</div>
       </div>
     );
   }
 }
-
-Forecast.propTypes = {};
 
 export default Forecast;

@@ -1,6 +1,6 @@
-import React from "react";
-import PropTypes from "prop-types";
-import format from "date-fns/format";
+import React from 'react';
+import format from 'date-fns/format';
+import './css/Day.css';
 
 // Convert kelvin to farenheight
 function kToF(kelvin) {
@@ -11,17 +11,23 @@ const Day = props => {
   console.log(props);
   const { dt, weather, temp } = props.weather;
   const date = new Date(dt * 1000); // Convert from unix to datetime
-  const day = format(date, "ddd"); // Extract day of week
+  const day = format(date, 'ddd'); // Extract day of week
+
   return (
-    <div>
-      {day}
-      {weather[0].main}
-      {kToF(temp.max)}
-      {kToF(temp.min)}
+    <div className="day column">
+      <div className="box">
+        <span>{day}</span>
+        <span>
+          <i className={`wi wi-owm-${weather[0].id}`} />
+        </span>
+        <div className="temps">
+          <span className="temp has-text-info">{kToF(temp.min)}&deg;</span>
+          &nbsp;/&nbsp;
+          <span className="temp has-text-danger"> {kToF(temp.max)}&deg;</span>
+        </div>
+      </div>
     </div>
   );
 };
-
-Day.propTypes = {};
 
 export default Day;

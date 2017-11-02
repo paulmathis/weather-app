@@ -1,0 +1,37 @@
+.home {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  height: 100vh;
+}
+
+.test > h1 {
+  animation: hideText 0.5s forwards;
+}
+
+.test form {
+  animation: unjustify 3s forwards;
+}
+
+@keyframes unjustify {
+  0% {
+    /* justify-content: center; */
+    transform: translateY(0);
+  }
+  10% {
+    transform: translateY(0);
+  }
+  100% {
+    transform: translateY(-50vh);
+    /* justify-content: flex-start; */
+  }
+}
+
+@keyframes hideText {
+  0% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
