@@ -5170,6 +5170,16 @@ react@^16.0.0:
     object-assign "^4.1.1"
     prop-types "^15.6.0"
 
+reactbulma@^1.1.0:
+  version "1.1.0"
+  resolved "https://registry.yarnpkg.com/reactbulma/-/reactbulma-1.1.0.tgz#ce5fa0be10679de2062232f1c5b230545d9cd67b"
+  dependencies:
+    bulma "^0.6.0"
+    classnames "^2.2.5"
+    prop-types "^15.6.0"
+    react "^16.0.0"
+    react-dom "^16.0.0"
+
 read-all-stream@^3.0.0:
   version "3.1.0"
   resolved "https://registry.yarnpkg.com/read-all-stream/-/read-all-stream-3.1.0.tgz#35c3e177f2078ef789ee4bfafa4373074eaef4fa"

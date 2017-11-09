@@ -1,0 +1,14 @@
+.zip-input-form .control {
+  display: flex;
+  justify-content: center;
+}
+
+.zip-input-form input {
+  max-width: 500px;
+}
+
+.zip-input-form {
+  /* top: 0; */
+}
+
+@keyframes inputToTop {}

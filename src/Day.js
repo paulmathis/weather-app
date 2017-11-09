@@ -1,5 +1,6 @@
 import React from 'react';
 import format from 'date-fns/format';
+import {Box, Icon} from 'reactbulma'
 import './css/Day.css';
 
 // Convert kelvin to farenheight
@@ -9,23 +10,24 @@ function kToF(kelvin) {
 
 const Day = props => {
   console.log(props);
-  const { dt, weather, temp } = props.weather;
+  const {dt, weather, temp} = props.weather;
   const date = new Date(dt * 1000); // Convert from unix to datetime
   const day = format(date, 'ddd'); // Extract day of week
 
   return (
     <div className="day column">
-      <div className="box">
+      <Box>
         <span>{day}</span>
-        <span>
-          <i className={`wi wi-owm-${weather[0].id}`} />
-        </span>
+        <Icon>
+          <i className={`wi wi-owm-${weather[0].id}`}/>
+        </Icon>
         <div className="temps">
           <span className="temp has-text-info">{kToF(temp.min)}&deg;</span>
           &nbsp;/&nbsp;
-          <span className="temp has-text-danger"> {kToF(temp.max)}&deg;</span>
+          <span className="temp has-text-danger">
+            {kToF(temp.max)}&deg;</span>
         </div>
-      </div>
+      </Box>
     </div>
   );
 };

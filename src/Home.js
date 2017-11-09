@@ -1,5 +1,6 @@
-import React, { Component } from 'react';
-import Input from './Input';
+import React, {Component} from 'react';
+import {Title} from 'reactbulma'
+import ZipInput from './ZipInput';
 import './css/Home.css';
 
 class Home extends Component {
@@ -10,8 +11,7 @@ class Home extends Component {
   render() {
     return (
       <div className="home has-text-centered">
-        <h1 className="title">Simple Weather</h1>
-        <Input history={this.props.history} />
+        <Title is='1'>Simple Weather</Title>
       </div>
     );
   }

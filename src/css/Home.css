@@ -1,11 +1,11 @@
-.home {
+/* .home {
   display: flex;
   flex-direction: column;
   justify-content: center;
   height: 100vh;
-}
+} */
 
-.test > h1 {
+.test>h1 {
   animation: hideText 0.5s forwards;
 }
 

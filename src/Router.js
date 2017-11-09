@@ -1,15 +1,17 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import {Router, Route} from 'react-router-dom';
+import history from './history';
 import Home from './Home';
 import Forecast from './Forecast';
-import Input from './Input';
+import ZipInput from './ZipInput';
 
 const AppRouter = () => {
   return (
-    <Router>
-      <div className="">
-        <Route exact path="/" component={Home} />
-        <Route path="/:location" component={Forecast} />
+    <Router history={history}>
+      <div>
+        <ZipInput/>
+        <Route exact path="/" component={Home}/>
+        <Route path="/:location" component={Forecast}/>
       </div>
     </Router>
   );
