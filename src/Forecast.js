@@ -1,6 +1,7 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import axios from 'axios';
-import {Container} from 'reactbulma';
+import { Container } from 'reactbulma';
+import styled from 'styled-components';
 import Day from './Day';
 import ZipInput from './ZipInput';
 
@@ -15,9 +16,7 @@ class Forecast extends Component {
       // Zip is to check if it has changed
       zip: this.props.match.params.location
     };
-    this.apiCall = this
-      .apiCall
-      .bind(this);
+    this.apiCall = this.apiCall.bind(this);
   }
 
   // Get weather data for zip in route params
@@ -26,13 +25,13 @@ class Forecast extends Component {
     console.log('api call');
     axios
       .get(`https://api.openweathermap.org/data/2.5/forecast/daily`, {
-      params: {
-        zip: location,
-        appid: key
-      }
-    })
-      .then(({data}) => {
-        this.setState({city: data.city.name, allWeather: data.list});
+        params: {
+          zip: location,
+          appid: key
+        }
+      })
+      .then(({ data }) => {
+        this.setState({ city: data.city.name, allWeather: data.list });
       })
       .catch(err => {
         console.log(err);
@@ -46,27 +45,22 @@ class Forecast extends Component {
 
   // Remake api request on update from ZipInput
   componentDidUpdate() {
-    console.log("updated")
+    console.log('updated');
     // Only make a new call if the zip has changed
     if (this.state.zip !== this.props.match.params.location) {
       this.apiCall();
       // Set the zip state to the current param
-      this.setState({zip: this.props.match.params.location});
+      this.setState({ zip: this.props.match.params.location });
     }
   }
 
   render() {
     // Render individual day components
-    const days = this
-      .state
-      .allWeather
-      .map(day => {
-        // console.log(day);
-        return <Day key={day.dt} weather={day}/>;
-      });
-    return (
-      <div className="columns">{days}</div>
-    );
+    const days = this.state.allWeather.map(day => {
+      // console.log(day);
+      return <Day key={day.dt} weather={day} />;
+    });
+    return <div className="columns">{days}</div>;
   }
 }
 
