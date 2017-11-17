@@ -1,10 +1,8 @@
 import React, { Component } from 'react';
 import { Input, Button, Control } from 'reactbulma';
 import styled from 'styled-components';
-import history from './history';
 
 const Form = styled.form`
-  background-color: red;
   .control {
     display: flex;
     justify-content: center;
@@ -18,41 +16,47 @@ class ZipInput extends Component {
   constructor(props) {
     super(props);
     this.state = {
+      valid: false,
       input: ''
     };
+    // this.validate = this.validate.bind(this);
+    this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
-    this.handleInput = this.handleInput.bind(this);
   }
 
-  componentDidMount() {
-    console.log(this.props.history.pathname === '/');
-    console.log(history.location.pathname === '/');
-  }
-  // Set state input value
-  handleInput(e) {
-    this.setState({ input: e.target.value });
+  handleChange(e) {
+    // Only allow up to 5 numbers
+    const regexInput = /^\d{0,5}$|^\d{5}-\d{4}$/;
+    if (e.target.value.match(regexInput))
+      this.setState({ input: e.target.value }, () => {
+        // Only able to submit after all 5 number are input
+        const regexSubmit = /^\d{5}$|^\d{5}-\d{4}$/;
+        if (this.state.input.match(regexSubmit)) this.setState({ valid: true });
+        else this.setState({ valid: false });
+      });
   }
 
-  // Redirect to /:input on submits
   handleSubmit(e) {
-    e.preventDefault();
-    history.push(`/${this.state.input}`);
+    this.props.onSubmit(e, this.state.input);
   }
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit} action="" className=" zip-input-form field">
+      <Form onSubmit={this.handleSubmit} action="" className={`${this.props.className} field}`}>
         <Control>
           <Input
             medium
-            onChange={this.handleInput}
+            onChange={this.handleChange}
             type="text"
-            placeholder="Enter a zip code"
+            placeholder="Enter a 5 digit zip code"
             value={this.state.input}
           />
         </Control>
         <Control>
-          <Button type="submit">Submit</Button>
+          {/* Disable submit until 5 digits */}
+          <Button disabled={!this.state.valid} type="submit">
+            Submit
+          </Button>
         </Control>
       </Form>
     );

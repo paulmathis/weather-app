@@ -1,9 +1,6 @@
 import React, { Component } from 'react';
 import axios from 'axios';
-import { Container } from 'reactbulma';
-import styled from 'styled-components';
 import Day from './Day';
-import ZipInput from './ZipInput';
 
 const key = 'a08df5773a66dd650a0e2724e8e6f468';
 
@@ -14,14 +11,14 @@ class Forecast extends Component {
       city: '',
       allWeather: [],
       // Zip is to check if it has changed
-      zip: this.props.match.params.location
+      zip: this.props.zip
     };
     this.apiCall = this.apiCall.bind(this);
   }
 
   // Get weather data for zip in route params
   apiCall() {
-    const location = this.props.match.params.location;
+    const location = this.props.zip;
     console.log('api call');
     axios
       .get(`https://api.openweathermap.org/data/2.5/forecast/daily`, {
@@ -45,12 +42,11 @@ class Forecast extends Component {
 
   // Remake api request on update from ZipInput
   componentDidUpdate() {
-    console.log('updated');
     // Only make a new call if the zip has changed
-    if (this.state.zip !== this.props.match.params.location) {
+    if (this.state.zip !== this.props.zip) {
       this.apiCall();
       // Set the zip state to the current param
-      this.setState({ zip: this.props.match.params.location });
+      this.setState({ zip: this.props.zip });
     }
   }
 
@@ -60,7 +56,12 @@ class Forecast extends Component {
       // console.log(day);
       return <Day key={day.dt} weather={day} />;
     });
-    return <div className="columns">{days}</div>;
+    return (
+      <div className="columns">
+        {/* {this.state.city} */}
+        {days}
+      </div>
+    );
   }
 }
 
