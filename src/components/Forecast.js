@@ -1,8 +1,13 @@
 import React, { Component } from 'react';
 import axios from 'axios';
+import styled from 'styled-components';
+import { Title } from 'reactbulma';
 import Day from './Day';
+import AnimationForecast from './AnimationForecast';
 
 const key = 'a08df5773a66dd650a0e2724e8e6f468';
+
+const Columns = styled.div`@media (max-width: 601px) {margin-top: 70px;}`;
 
 class Forecast extends Component {
   constructor(props) {
@@ -11,7 +16,8 @@ class Forecast extends Component {
       city: '',
       allWeather: [],
       // Zip is to check if it has changed
-      zip: this.props.zip
+      zip: this.props.zip,
+      animate: false
     };
     this.apiCall = this.apiCall.bind(this);
   }
@@ -19,6 +25,7 @@ class Forecast extends Component {
   // Get weather data for zip in route params
   apiCall() {
     const location = this.props.zip;
+    this.props.loadingFunc(true);
     console.log('api call');
     axios
       .get(`https://api.openweathermap.org/data/2.5/forecast/daily`, {
@@ -29,9 +36,13 @@ class Forecast extends Component {
       })
       .then(({ data }) => {
         this.setState({ city: data.city.name, allWeather: data.list });
+        this.props.loadingFunc(false);
+        // Fade in
+        this.setState({ animate: true });
       })
       .catch(err => {
         console.log(err);
+        this.props.loadingFunc(false);
       });
   }
 
@@ -44,7 +55,10 @@ class Forecast extends Component {
   componentDidUpdate() {
     // Only make a new call if the zip has changed
     if (this.state.zip !== this.props.zip) {
+      // Fade out before new api call
+      this.setState({ animate: false });
       this.apiCall();
+
       // Set the zip state to the current param
       this.setState({ zip: this.props.zip });
     }
@@ -57,10 +71,13 @@ class Forecast extends Component {
       return <Day key={day.dt} weather={day} />;
     });
     return (
-      <div className="columns">
-        {/* {this.state.city} */}
-        {days}
-      </div>
+      <AnimationForecast animate={this.state.animate}>
+        <Title>{this.state.city}</Title>
+        <Columns className="columns is-multiline is-mobile is-centered">
+          {/* {this.state.city} */}
+          {days}
+        </Columns>
+      </AnimationForecast>
     );
   }
 }

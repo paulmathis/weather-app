@@ -15,13 +15,9 @@ const WeatherBox = styled.div`
     align-items: center;
     text-align: center;
     justify-content: space-between;
-    height: 13vw;
-    font-size: 1.5vw;
-    @media (max-width: 768px) {
-      height: 200px;
-      font-size: 1rem;
-      max-width: 200px;
-    }
+    font-size: 1.5rem;
+    height: 12rem;
+    background-color: #caebf2;
   }
   i {
     font-size: 2em;
@@ -34,7 +30,7 @@ const Day = props => {
   const day = format(date, 'ddd'); // Extract day of week
 
   return (
-    <WeatherBox className="column">
+    <WeatherBox className="column is-narrow">
       <Box>
         <span>{day}</span>
         <Icon>

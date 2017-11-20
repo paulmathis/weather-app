@@ -10,6 +10,10 @@ const Form = styled.form`
   input {
     max-width: 500px;
   }
+
+  button {
+    font-size: 30px;
+  }
 `;
 
 class ZipInput extends Component {
@@ -51,11 +55,16 @@ class ZipInput extends Component {
             placeholder="Enter a 5 digit zip code"
             value={this.state.input}
           />
-        </Control>
-        <Control>
+
           {/* Disable submit until 5 digits */}
-          <Button disabled={!this.state.valid} type="submit">
-            Submit
+          <Button
+            disabled={!this.state.valid}
+            medium
+            info
+            type="submit"
+            className={this.props.loading ? 'is-loading' : ''}
+          >
+            <i className="fa fa-arrow-right" aria-hidden="true" />
           </Button>
         </Control>
       </Form>
