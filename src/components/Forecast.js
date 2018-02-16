@@ -7,7 +7,11 @@ import AnimationForecast from './AnimationForecast';
 
 const key = 'a08df5773a66dd650a0e2724e8e6f468';
 
-const Columns = styled.div`@media (max-width: 601px) {margin-top: 70px;}`;
+const Columns = styled.div`
+  @media (max-width: 601px) {
+    margin-top: 20px;
+  }
+`;
 
 class Forecast extends Component {
   constructor(props) {

@@ -46,28 +46,30 @@ class ZipInput extends Component {
 
   render() {
     return (
-      <Form onSubmit={this.handleSubmit} action="" className={`${this.props.className} field}`}>
-        <Control>
-          <Input
-            medium
-            onChange={this.handleChange}
-            type="text"
-            placeholder="Enter a 5 digit zip code"
-            value={this.state.input}
-          />
+      <div style={{ paddingLeft: '7px', paddingRight: '7px', marginBottom: '-30px' }}>
+        <Form onSubmit={this.handleSubmit} action="" className={`${this.props.className} field}`}>
+          <Control>
+            <Input
+              medium
+              onChange={this.handleChange}
+              type="text"
+              placeholder="Enter a 5 digit zip code"
+              value={this.state.input}
+            />
 
-          {/* Disable submit until 5 digits */}
-          <Button
-            disabled={!this.state.valid}
-            medium
-            info
-            type="submit"
-            className={this.props.loading ? 'is-loading' : ''}
-          >
-            <i className="fa fa-arrow-right" aria-hidden="true" />
-          </Button>
-        </Control>
-      </Form>
+            {/* Disable submit until 5 digits */}
+            <Button
+              disabled={!this.state.valid}
+              medium
+              info
+              type="submit"
+              className={this.props.loading ? 'is-loading' : ''}
+            >
+              <i className="fa fa-arrow-right" aria-hidden="true" />
+            </Button>
+          </Control>
+        </Form>
+      </div>
     );
   }
 }

@@ -9,9 +9,9 @@ import './css/font-awesome.css';
 import './css/base.css';
 
 const AppContainer = styled(Container)`
-  display: flex;
+  /* display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: center; */
   height: 100vh;
   text-align: center;
 `;
